@@ -50,6 +50,19 @@ app.post('/add', function (req, res) {
   });
 });
 
+app.get('/getData', function (req, res) {
+  new Promise(function (resolve, reject) {
+    let data = conn.collection('VaultQ').find().toArray(function (err, docs) {
+      resolve(docs)
+    })
+
+  }).then(function (data) {
+    res.send(data);
+  }).catch(function (err) {
+    console.log(err);
+  });
+})
+
 app.listen(app.get('port'), function () {
   console.log('Node app is running on port', app.get('port'));
 });
