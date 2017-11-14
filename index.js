@@ -22,6 +22,23 @@ app.get('/add', function (req, res) {
   new Promise(function (resolve, reject) {
     const entry = {
       headers: req.headers,
+      url: req.url,
+      body: req.body
+    }
+    conn.collection('VaultQ').insert(entry);
+    return resolve('Done');
+  }).then(function (data) {
+    res.send(data);
+  }).catch(function (err) {
+    console.log(err);
+  });
+});
+
+app.post('/add', function (req, res) {
+  new Promise(function (resolve, reject) {
+    const entry = {
+      headers: req.headers,
+      url: req.url,
       body: req.body
     }
     conn.collection('VaultQ').insert(entry);
